@@ -63,7 +63,7 @@
       tmPk.tmpHover();
       tmPk.titleSplit_2();
       tmPk.lineAnimation();
-      tmPk.tmpgradientAnimation();
+      // tmPk.tmpgradientAnimation();
       tmPk._clickDoc();
     },
     shapeMove: function(){
