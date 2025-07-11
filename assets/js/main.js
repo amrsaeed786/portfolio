@@ -113,7 +113,7 @@
             observer.observe(videoCard, { attributes: true });
         }
     
-        checkAndObserve();
+        // checkAndObserve();
     
         if (closeButton) {
           closeButton.addEventListener("click", function () {
