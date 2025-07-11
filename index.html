@@ -1126,6 +1126,7 @@
         const yourEmail = document.getElementById("yourEmail").value.trim();
         const subject = document.getElementById("subject").value.trim();
         const message = document.getElementById("message").value.trim();
+        const captcha = document.querySelector(".g-recaptcha-response");
 
         // Basic front-end validation
         let hasError = false;
@@ -1147,6 +1148,11 @@
         if (!message) {
           document.getElementById("messageError").textContent =
             "Please enter a message.";
+          hasError = true;
+        }
+        if (!captcha || !captcha.value) {
+          document.getElementById("captchaError").textContent =
+            "Please complete the reCAPTCHA.";
           hasError = true;
         }
 
