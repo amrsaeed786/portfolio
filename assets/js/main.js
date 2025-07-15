@@ -43,7 +43,7 @@
       tmPk.bgActiveBlur();
       tmPk.serviceWidget();
       tmPk.swiperJs();
-      tmPk.wowActive();
+      // tmPk.wowActive();
       tmPk.tmpVedioActivation();
       tmPk.stickyHeader();
       tmPk.smoothScroll();
@@ -52,14 +52,14 @@
       tmPk.radialProgress();
       tmPk.fonklsAnimation();
       tmPk.rightDemo();
-      tmPk.onePageNav();
+      // tmPk.onePageNav();
       tmPk.tpm_mobileMenuActive();
       tmPk.stickyToTop();
       tmPk.tmpcustomAnimation();
       tmPk.popupMobileMenu();
       tmPk.preloaderWithBannerActivation();
       tmPk.odoMeter();
-      tmPk.tmpTiltAnimation();
+      // tmPk.tmpTiltAnimation();
       tmPk.tmpHover();
       tmPk.titleSplit_2();
       tmPk.lineAnimation();
@@ -359,9 +359,9 @@
       });
     },
 
-    wowActive: function () {
-      new WOW().init();
-    },
+    // wowActive: function () {
+    //   new WOW().init();
+    // },
 
     tmpVedioActivation: function (e) {
       $(".play-video").on("click", function (e) {
@@ -991,3 +991,91 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+// Contact Form Submission
+      document.getElementById("contactForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Clear previous error messages
+        document
+          .querySelectorAll(".error")
+          .forEach((el) => (el.textContent = ""));
+        document.getElementById("responseMessage").textContent = "";
+
+        // Gather form data
+        const yourName = document.getElementById("yourName").value.trim();
+        const yourEmail = document.getElementById("yourEmail").value.trim();
+        const subject = document.getElementById("subject").value.trim();
+        const message = document.getElementById("message").value.trim();
+        const captcha = document.querySelector(".g-recaptcha-response");
+
+        // Basic front-end validation
+        let hasError = false;
+        if (!yourName) {
+          document.getElementById("nameError").textContent =
+            "Please enter your name.";
+          hasError = true;
+        }
+        if (!yourEmail) {
+          document.getElementById("emailError").textContent =
+            "Please enter your email.";
+          hasError = true;
+        }
+        if (!subject) {
+          document.getElementById("subjectError").textContent =
+            "Please enter a subject.";
+          hasError = true;
+        }
+        if (!message) {
+          document.getElementById("messageError").textContent =
+            "Please enter a message.";
+          hasError = true;
+        }
+        if (!captcha || !captcha.value) {
+          document.getElementById("captchaError").textContent =
+            "Please complete the reCAPTCHA.";
+          hasError = true;
+        }
+
+        if (hasError) return;
+
+        // Disable submit button and show loading spinner
+        const submitButton = document.getElementById("submitButton");
+        submitButton.disabled = true;
+        const originalButtonText = submitButton.innerHTML;
+        submitButton.innerHTML = `<span class="spinner"></span> Sending...`;
+
+        // Send form data via fetch API
+        fetch("https://techwpsolution.vercel.app/api/v1/users/submit-form", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ yourName, yourEmail, subject, message }),
+        })
+          .then(async (response) => {
+            const data = await response.json();
+            if (!response.ok) {
+              throw data;
+            }
+
+            // Show success message
+            document.getElementById("responseMessage").textContent =
+              "Your message has been sent successfully!";
+            document.getElementById("contactForm").reset();
+          })
+          .catch((error) => {
+            // Show error message if available
+            if (error.message) {
+              document.getElementById(
+                "responseMessage"
+              ).innerHTML = `<span class="text-danger">${error.message}</span>`;
+            }
+          })
+          .finally(() => {
+            // Re-enable submit button and restore original text
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+          });
+      });
+    
