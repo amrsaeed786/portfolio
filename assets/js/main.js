@@ -1046,7 +1046,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.innerHTML = `<span class="spinner"></span> Sending...`;
 
         // Send form data via fetch API
-        fetch("https://techwpsolution.vercel.app/api/v1/users/submit-form", {
+        fetch("https://techwpsolution-72wxy48bw-amrsaeed786s-projects.vercel.app/api/v1/users/submit-form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
